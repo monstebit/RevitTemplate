@@ -1,0 +1,13 @@
+*.idea/
+*.vs/
+*.vscode/
+*.__pycache__
+*obj/
+*bin/
+*temp/
+
+/packages/
+/output/
+
+*/build.schema.json
+*.DotSettings.user

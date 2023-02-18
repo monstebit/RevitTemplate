@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <PluginName>PluginTemplate</PluginName>
+    <PlatformTarget>x64</PlatformTarget>
+    <Configurations>Debug R20;Debug R22;Debug R23</Configurations>
+    <Configurations>$(Configurations);Release R20;Release R22;Release R23</Configurations>
+    <Platforms>AnyCPU</Platforms>
+    <ProjectGuid>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <LangVersion>latest</LangVersion>
+    <OutputDir>$(Configuration)</OutputDir>
+    <OutputPath>bin\$(OutputDir)</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('R20'))">
+    <RevitVersion>2020</RevitVersion>
+    <DefineConstants>$(DefineConstants);R20</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('R21'))">
+    <RevitVersion>2021</RevitVersion>
+    <DefineConstants>$(DefineConstants);R21</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('R22'))">
+    <RevitVersion>2022</RevitVersion>
+    <DefineConstants>$(DefineConstants);R22</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('R23'))">
+    <RevitVersion>2023</RevitVersion>
+    <DefineConstants>$(DefineConstants);R23</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release R20|x64' ">
+    <OutputPath>bin\x64\2020\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release R21|x64' ">
+    <OutputPath>bin\x64\2021\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release R22|x64' ">
+    <OutputPath>bin\x64\2022\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release R23|x64' ">
+    <OutputPath>bin\x64\2023\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug R23|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug R22|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug R20|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug R21|x64' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+    <AddinPath>$(ProgramData)\Autodesk\Revit\Addins\$(RevitVersion)</AddinPath>
+    <OutputPath>$(AddinPath)\$(PluginName)</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+    <AddinPath>$(OutputPath)</AddinPath>
+    <OutputPath>$(AddinPath)\$(PluginName)</OutputPath>
+    <AllowedReferenceRelatedFileExtensions>.allowedextension</AllowedReferenceRelatedFileExtensions>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Version>$(RevitVersion)</Version>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <RevitProgrammFolder>C:\Program Files\Autodesk\Revit $(RevitVersion)\</RevitProgrammFolder>
+    <StartProgram>C:\Program Files\Autodesk\Revit $(RevitVersion)\Revit.exe</StartProgram>
+    <StartArguments>/language ENG</StartArguments>
+  </PropertyGroup>
+  <!-- Another way to Revit DLL -->
+  <ItemGroup>
+    <Reference Include="RevitAPI">
+      <HintPath>$(RevitProgrammFolder)RevitAPI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>$(RevitProgrammFolder)AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>$(RevitProgrammFolder)RevitAPIUI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <Target Name="DebugInstall" AfterTargets="AfterBuild" Condition="$(Configuration.Contains('Debug'))">
+    <PropertyGroup Label="Copy to addins">
+      <InstallDir>$(OutputPath)</InstallDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <Addin Include="$(ProjectDir)\Resources\Addin\$(RevitVersion)\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Addin)" DestinationFolder="$(AddinPath)" />
+    <Message Text="====BUILD DONE============================================================" Importance="high" />
+    <Message Text=" Output path = $(InstallDir)" Importance="high" />
+    <Message Text=" Revit dll path = $(RevitProgrammFolder)" Importance="high" />
+    <Message Text="==========================================================================" Importance="high" />
+  </Target>
+  <Target Name="ReleaseInstall" AfterTargets="AfterBuild" Condition="$(Configuration.Contains('Release'))">
+    <PropertyGroup Label="Copy to addins">
+      <InstallDir>$(OutputPath)</InstallDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <Addin Include="$(ProjectDir)\Resources\Addin\$(RevitVersion)\**" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Addin)" DestinationFolder="$(AddinPath)" />
+    <Message Text="====BUILD DONE============================================================" Importance="high" />
+    <Message Text=" Output path = $(InstallDir)" Importance="high" />
+    <Message Text=" Revit dll path = $(RevitProgrammFolder)" Importance="high" />
+    <Message Text="==========================================================================" Importance="high" />
+  </Target>
+  <ItemGroup Label="References">
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Serilog">
+      <HintPath>..\..\..\.nuget\packages\serilog\2.12.0\lib\net47\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Json" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2023\AddIns\DynamoForRevit\System.Windows.Interactivity.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup Label=".cs files">
+    <Compile Include="Application.cs" />
+    <Compile Include="Core\Enums\ResultStatus.cs" />
+    <Compile Include="Core\Helpers\AssemblyResourceHelper.cs" />
+    <Compile Include="Core\Helpers\Core\CategoryParametersContainer.cs" />
+    <Compile Include="Core\Helpers\Core\ParameterMetadata.cs" />
+    <Compile Include="Core\Helpers\Core\ParameterSetMap.cs" />
+    <Compile Include="Core\Helpers\Core\ParameterUsingType.cs" />
+    <Compile Include="Core\Helpers\RevitContextHelper.cs" />
+    <Compile Include="Core\Results\RevitContextResult.cs" />
+    <Compile Include="Core\Helpers\RevitParameterHelper.cs" />
+    <Compile Include="Core\Utils\LangPackUtil.cs" />
+    <Compile Include="Microsoft\VisualBasic\Interaction.cs" />
+    <Compile Include="Modules\FirstPluginModule\ExternalCommands\FirstPluginCommand.cs" />
+    <Compile Include="Modules\MVVM\ApplicationViewModel.cs" />
+    <Compile Include="Modules\MVVM\Phone.cs" />
+    <Compile Include="Modules\MVVM\RelayCommand.cs" />
+    <Compile Include="Modules\MVVM\MVVMCommand.cs" />
+    <Compile Include="Modules\MVVM\ThirdPluginModule.cs" />
+    <Compile Include="Modules\ZeroPluginModule\ExternalCommands\ZeroPluginCommand.cs" />
+    <Compile Include="Modules\ModalWindowModule\Core\Creator.cs" />
+    <Compile Include="Modules\ModalWindowModule\ExternalCommands\ModalWindowExternalCommand.cs" />
+    <Compile Include="Modules\ModalWindowModule\ModalWindowModule.cs" />
+    <Compile Include="Modules\ModalWindowModule\ViewModel\Converters\ReverseBoolConverter.cs" />
+    <Compile Include="Modules\ModalWindowModule\ViewModel\ModalWindowViewModel.cs" />
+    <Compile Include="Modules\ModalWindowModule\View\ModalWindowView.xaml.cs" />
+    <Compile Include="Modules\FirstPluginModule\FirstPluginModule.cs" />
+    <Compile Include="Modules\ModuleTemplate.cs" />
+    <Compile Include="Modules\SecondPluginModule\Core\Creator.cs" />
+    <Compile Include="Modules\SecondPluginModule\ExternalCommands\SecondPluginCommand.cs" />
+    <Compile Include="Modules\SecondPluginModule\SecondPluginModule.cs" />
+    <Compile Include="Modules\SecondPluginModule\View\SecondPluginView.xaml.cs" />
+    <Compile Include="Modules\SecondPluginModule\ViewModel\Converters\ReverseBoolConverter.cs" />
+    <Compile Include="Modules\SecondPluginModule\ViewModel\SecondPluginViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\LangPack\EngLang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EngLang.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\LangPack\RusLang.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RusLang.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\MVVM\MainWindow.xaml.cs" />
+  </ItemGroup>
+  <ItemGroup Label="XAML pages">
+    <Page Include="Modules\MVVM\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ModalWindowModule\View\ModalWindowView.xaml" />
+    <Page Include="Modules\SecondPluginModule\View\SecondPluginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TemplateStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TemplateStyle1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup Label="Nuget Package">
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Addin\2020\RevitTemplate2020.addin" />
+    <Resource Include="Resources\Addin\2022\RevitTemplate2022.addin" />
+    <Resource Include="Resources\Addin\2023\RevitTemplate2023.addin" />
+    <Resource Include="Modules\ModalWindowModule\Resources\Images\ChamionLogo150x150.png" />
+    <Resource Include="Modules\ModalWindowModule\Resources\Images\ChamionLogo300x300.png" />
+    <Resource Include="Modules\ModalWindowModule\Resources\Images\ChamionLogo64x64.png" />
+    <Resource Include="Modules\ModalWindowModule\Resources\Images\Frames.png" />
+    <Resource Include="Modules\FirstPluginModule\Resources\Images\lsrMepScheme.png" />
+    <Resource Include="Modules\SecondPluginModule\Resources\Images\lsrSetParamValue.png" />
+    <Content Include="Resources\Sources\Families\Family1.txt" />
+    <Content Include="Resources\Sources\Families\Family2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\LangPack\EngLang.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EngLang.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LangPack\RusLang.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RusLang.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Addin\2021\RevitTemplate2021.addin" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
