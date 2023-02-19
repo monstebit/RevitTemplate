@@ -166,9 +166,10 @@
     <Compile Include="Modules\FirstPluginModule\ExternalCommands\FirstPluginCommand.cs" />
     <Compile Include="Modules\MVVM\ApplicationViewModel.cs" />
     <Compile Include="Modules\MVVM\Phone.cs" />
-    <Compile Include="Modules\MVVM\RelayCommand.cs" />
+    <Compile Include="Modules\MVVM\RelayCommandS.cs" />
     <Compile Include="Modules\MVVM\MVVMCommand.cs" />
     <Compile Include="Modules\MVVM\ThirdPluginModule.cs" />
+    <Compile Include="Modules\ZeroPluginModule\Core\RevitSelector.cs" />
     <Compile Include="Modules\ZeroPluginModule\ExternalCommands\ZeroPluginCommand.cs" />
     <Compile Include="Modules\ModalWindowModule\Core\Creator.cs" />
     <Compile Include="Modules\ModalWindowModule\ExternalCommands\ModalWindowExternalCommand.cs" />
@@ -184,6 +185,11 @@
     <Compile Include="Modules\SecondPluginModule\View\SecondPluginView.xaml.cs" />
     <Compile Include="Modules\SecondPluginModule\ViewModel\Converters\ReverseBoolConverter.cs" />
     <Compile Include="Modules\SecondPluginModule\ViewModel\SecondPluginViewModel.cs" />
+    <Compile Include="Modules\ZeroPluginModule\ViewModel\ZeroPluginViewModel.cs" />
+    <Compile Include="Modules\ZeroPluginModule\View\ZeroPluginView.xaml.cs">
+      <DependentUpon>ZeroPluginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ZeroPluginModule\ZeroPluginModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\LangPack\EngLang.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -204,6 +210,10 @@
     <Page Include="Modules\ModalWindowModule\View\ModalWindowView.xaml" />
     <Page Include="Modules\SecondPluginModule\View\SecondPluginView.xaml">
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ZeroPluginModule\View\ZeroPluginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TemplateStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -233,6 +243,7 @@
     <Resource Include="Modules\ModalWindowModule\Resources\Images\Frames.png" />
     <Resource Include="Modules\FirstPluginModule\Resources\Images\lsrMepScheme.png" />
     <Resource Include="Modules\SecondPluginModule\Resources\Images\lsrSetParamValue.png" />
+    <Resource Include="Modules\ZeroPluginModule\Resources\Images\jokeFuck.png" />
     <Content Include="Resources\Sources\Families\Family1.txt" />
     <Content Include="Resources\Sources\Families\Family2.txt" />
   </ItemGroup>

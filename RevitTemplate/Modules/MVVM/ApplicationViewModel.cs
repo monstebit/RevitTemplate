@@ -11,13 +11,13 @@ namespace MVVM
         public ObservableCollection<Phone> Phones { get; set; }
 
         // Команда добавления нового объекта
-        private RelayCommand addCommand;
-        public RelayCommand AddCommand
+        private RelayCommandS addCommand;
+        public RelayCommandS AddCommand
         {
             get
             {
                 return addCommand ??
-                  (addCommand = new RelayCommand(obj =>
+                  (addCommand = new RelayCommandS(obj =>
                   {
                       Phone phone = new Phone();
                       Phones.Insert(0, phone);
@@ -26,13 +26,13 @@ namespace MVVM
             }
         }
 
-        private RelayCommand removeCommand;
-        public RelayCommand RemoveCommand
+        private RelayCommandS removeCommand;
+        public RelayCommandS RemoveCommand
         {
             get
             {
                 return removeCommand ??
-                    (removeCommand = new RelayCommand(obj =>
+                    (removeCommand = new RelayCommandS(obj =>
                     {
                         Phone phone = obj as Phone;
                         if (phone != null)

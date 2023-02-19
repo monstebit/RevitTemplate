@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace MVVM
 {
-    public class RelayCommand : ICommand
+    public class RelayCommandS : ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;
@@ -14,10 +14,14 @@ namespace MVVM
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        public RelayCommandS(Action<object> execute, Func<object, bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
+        }
+
+        public RelayCommandS(Action changeCommentParamValue)
+        {
         }
 
         public bool CanExecute(object parameter)

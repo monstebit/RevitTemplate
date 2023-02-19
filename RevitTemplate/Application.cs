@@ -13,6 +13,8 @@ using Modules.FirstPluginModule.ExternalCommands;
 using Modules.ModalWindowModule;
 using Modules.ModalWindowModule.ExternalCommands;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
+using Modules.ZeroPluginModule;
+using System.Windows.Forms;
 
 public class Application : IExternalApplication
 {
@@ -46,6 +48,7 @@ public class Application : IExternalApplication
         _ribbonPanel3 = InitRibbonPanel(uiControlledApplication, _ribbonTab, RibbonPanel3Name, RibbonPanel3Title);
         //_ribbonPanel4 = InitRibbonPanel(uiControlledApplication, _ribbonTab, RibbonPanel4Name,RibbonPanel4Title);
         InitRibbonPanelsTheme();
+        //System.Windows.Forms.MessageBox.Show("Опа я запустил начало создания окна", "Йоу", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         //var modalWindowModule = ModalWindowModule.GetInstance();
         //modalWindowModule.RunModule(_ribbonPanel1);
@@ -58,6 +61,10 @@ public class Application : IExternalApplication
 
         var thirddModule = ThirdPluginModule1.GetInstance();
         thirddModule.RunModule(_ribbonPanel3);
+
+        var zeroPluginModule = ZeroPluginModule.GetInstance();
+        zeroPluginModule.RunModule(_ribbonPanel1);
+
 
 
         return Result.Succeeded;

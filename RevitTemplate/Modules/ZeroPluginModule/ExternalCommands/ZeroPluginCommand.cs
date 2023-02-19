@@ -1,8 +1,13 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Core.Helpers;
+using Modules.ZeroPluginModule.View;
+using Modules.ZeroPluginModule.ViewModel;
+using System.Windows;
+using System.Windows.Forms;
 
-namespace MVVM
+namespace Modules.ZeroPluginModule.ExternalCommands
 {
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
@@ -14,6 +19,17 @@ namespace MVVM
             UIDocument uiDocument = application.ActiveUIDocument;
             Document document = uiDocument.Document;
 
+            System.Windows.Forms.MessageBox.Show("Опа я запустил начало создания окна", "Йоу", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var module = ZeroPluginModule.GetInstance();
+
+            module.RunControls(commandData);
+
+            var contextHelper = new RevitContextHelper(application);
+            var myViewModel = new ZeroPluginViewModel(contextHelper);
+            var myView = new ZeroPluginView(myViewModel);
+
+            myView.Show();
             return Result.Succeeded;
         }
     }
