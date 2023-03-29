@@ -34,20 +34,13 @@ namespace Modules.FirstPluginModule.ExternalCommands
                 TaskDialog errorDialog = new TaskDialog("Ошибка")
                 {
                     MainInstruction = "Данная команда предназначена только для работы на 3D видах",
-                    //VerificationText = "Дополнительное окно",
                     CommonButtons = TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No,
                     DefaultButton = TaskDialogResult.Yes,
-                    //FooterText = "<a href=\"https://bim.vc/edu/courses\">" + "Получить дополнительные сведения</a>"
                 };
 
                 errorDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Открыть первый попавшийся 3D вид");
                 errorDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Завершить работу команды");
                 TaskDialogResult dialogResult = errorDialog.Show();
-
-                //if (errorDialog.WasVerificationChecked())
-                //{
-                //    TaskDialog.Show("Дополнительное окно", "Привет!)");
-                //}
 
                 if (dialogResult == TaskDialogResult.CommandLink1 || dialogResult == TaskDialogResult.Yes)
                 {
@@ -76,8 +69,9 @@ namespace Modules.FirstPluginModule.ExternalCommands
 
             FilteredElementCollector elementsOnView = new FilteredElementCollector(document, activeView.Id); // ищем все элементы на активном 3D виде
 
-            //IList<Element> allSystems = elementsOnView.OfClass(typeof(MEPSystem)) 
-            //                                           .ToElements(); // ищем все системы, которым принадлежат элементы с активного 3D вида
+            /* Ищем все системы, которым принадлежат элементы с активного 3D вида
+            IList<Element> allSystems = elementsOnView.OfClass(typeof(MEPSystem)) 
+                                                      .ToElements(); // ищем все системы, которым принадлежат элементы с активного 3D вида */
 
             OverrideGraphicSettings settingGraphics = new OverrideGraphicSettings();
             List<View> allThreeDViews = new FilteredElementCollector(document).OfCategory(BuiltInCategory.OST_Views)

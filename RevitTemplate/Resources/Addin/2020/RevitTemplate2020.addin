@@ -5,6 +5,6 @@
         <AddInId>fa77811b-0acf-4839-bbc6-71d709efd405</AddInId>
         <FullClassName>Application</FullClassName>
         <VendorId>Chamion</VendorId>
-        <VendorDescription>github.com/IlyaNavodkin</VendorDescription>
+        <VendorDescription>github.com/monstebit</VendorDescription>
     </AddIn>
 </RevitAddIns>

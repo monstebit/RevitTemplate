@@ -24,16 +24,16 @@ namespace Modules.FirstPluginModule
                 pushButtonName, AssemblyResourceHelper.GetAssemblyLocation(),
                 typeof(FirstPluginCommand).FullName);
 
-            var largeRibbonImagePath = "Modules\\FirstPluginModule\\Resources\\Images\\lsrMepScheme.png";
+            var largeRibbonImagePath = "Modules\\FirstPluginModule\\Resources\\Images\\lsrMepScheme2.png";
             var largeRibbonImage = new BitmapImage(AssemblyResourceHelper.GetUriResource(largeRibbonImagePath));
 
-            var toolTipImagePath = "Modules\\FirstPluginModule\\Resources\\Images\\lsrMepScheme.png";
+            var toolTipImagePath = "Modules\\FirstPluginModule\\Resources\\Images\\lsrMepScheme2.png";
             var toolTipImage = new BitmapImage(AssemblyResourceHelper.GetUriResource(toolTipImagePath));
 
             pushButtonData.LargeImage = largeRibbonImage;
-            pushButtonData.ToolTip = "//";
+            pushButtonData.ToolTip = "Автоматическое создание видов с изометрией MEP систем.";
             pushButtonData.ToolTipImage = toolTipImage;
-            pushButtonData.LongDescription = "//.";
+            pushButtonData.LongDescription = "...";
 
             ribbonPanel.AddItem(pushButtonData);
         }

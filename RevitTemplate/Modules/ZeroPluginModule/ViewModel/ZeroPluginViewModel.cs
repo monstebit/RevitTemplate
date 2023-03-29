@@ -2,7 +2,6 @@
 using Core.Helpers;
 using Microsoft.Toolkit.Mvvm.Input;
 using Modules.ZeroPluginModule.Core;
-using MVVM;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,8 +17,11 @@ namespace Modules.ZeroPluginModule.ViewModel
     public class ZeroPluginViewModel : INotifyPropertyChanged
     {
         public RevitSelector Selector { get; set; }
+
         public RevitContextHelper Helper { get; set; }
+
         public Element _selectedElement { get; set; }
+
         public Element SelectedElement
         {
             get { return _selectedElement; }
@@ -31,6 +33,7 @@ namespace Modules.ZeroPluginModule.ViewModel
         }
 
         public string _commentString { get; set; }
+
         public string CommentString
         {
             get { return _commentString; }
@@ -42,12 +45,14 @@ namespace Modules.ZeroPluginModule.ViewModel
         }
 
         public ICommand ChangeCommentParamValueCommand { get; set; }
+
         public void ChangeCommentParamValue()
         {
             Helper.RunTask(Selector.ChangeCommentParameterValue);
         }
 
         public ObservableCollection<Element> _selectedElements { get; set; }
+
         public ObservableCollection<Element> SelectedElements
         {
             get { return _selectedElements; }
@@ -65,10 +70,10 @@ namespace Modules.ZeroPluginModule.ViewModel
             Selector.UpdateSelectedElementsToViewModel();
 
             ChangeCommentParamValueCommand = new RelayCommand(ChangeCommentParamValue);
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             if (PropertyChanged != null)
