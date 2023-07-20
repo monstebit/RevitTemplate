@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Core.Helpers;
-using Modules.ZeroPluginModule.ExternalCommands;
+using Modules.ThirdPluginModule.ExternalCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,41 +9,41 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
-namespace Modules.ZeroPluginModule
+namespace Modules.ThirdPluginModule
 {
-    public class ZeroPluginModule
+    public class ThirdPluginModule
     {
         public void RunModule(RibbonPanel ribbonPanel)
         {
-            var pushButtonName = "ZeroPluginModule";
-            var pushButtonData = new PushButtonData(nameof(ZeroPluginCommand),
+            var pushButtonName = "Element Level\nChanger";
+            var pushButtonData = new PushButtonData(nameof(ThirdPluginCommand),
                 pushButtonName, AssemblyResourceHelper.GetAssemblyLocation(),
-                typeof(ZeroPluginCommand).FullName);
+                typeof(ThirdPluginCommand).FullName);
 
-            var largeRibbonImagePath = "Modules\\ZeroPluginModule\\Resources\\Images\\jokeFuck.png";
+            var largeRibbonImagePath = "Modules\\ThirdPluginModule\\Resources\\Images\\selectLevelElems.png";                                    
             var largeRibbonImage = new BitmapImage(AssemblyResourceHelper.GetUriResource(largeRibbonImagePath));
 
-            var toolTipImagePath = "Modules\\ZeroPluginModule\\Resources\\Images\\jokeFuck.png";
+            var toolTipImagePath = "Modules\\ThirdPluginModule\\Resources\\Images\\selectLevelElems.png";
             var toolTipImage = new BitmapImage(AssemblyResourceHelper.GetUriResource(toolTipImagePath));
 
             pushButtonData.LargeImage = largeRibbonImage;
-            pushButtonData.ToolTip = "text";
+            pushButtonData.ToolTip = "Изменения уровня для выделенных MEP элементов БЕЗ смещения в модели.";
             pushButtonData.ToolTipImage = toolTipImage;
-            pushButtonData.LongDescription = "text";
+            pushButtonData.LongDescription = "...";
 
             ribbonPanel.AddItem(pushButtonData);
 
         }
 
-        private static ZeroPluginModule _instance;
-        public static ZeroPluginModule GetInstance()
+        private static ThirdPluginModule _instance;
+        public static ThirdPluginModule GetInstance()
         {
             if (_instance == null)
-                _instance = new ZeroPluginModule();
+                _instance = new ThirdPluginModule();
             return _instance;
         }
 
-        private ZeroPluginModule() { }
+        private ThirdPluginModule() { }
 
         public ExternalCommandData CommandData;
         public Document Document;

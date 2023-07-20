@@ -19,7 +19,7 @@ namespace Modules.ZeroPluginModule.ExternalCommands
             UIDocument uiDocument = application.ActiveUIDocument;
             Document document = uiDocument.Document;
 
-            System.Windows.Forms.MessageBox.Show("Опа я запустил начало создания окна", "Йоу", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            System.Windows.Forms.MessageBox.Show("Я запустил начало создания окна ZeroPluginModule", "text", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var module = ZeroPluginModule.GetInstance();
 

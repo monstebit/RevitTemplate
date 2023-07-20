@@ -49,5 +49,10 @@ namespace Modules.ModalWindowModule.View
         {
             e.Handled = _regex.IsMatch(e.Text);
         }
+
+        private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -41,19 +41,19 @@ namespace Modules.ZeroPluginModule.Core
 
             var parameterComment = element.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS);
             if (parameterComment == null) return new RevitContextResult(ResultStatus.Error,
-                "Параметр комментарий не найден дебил");
+                "Параметр комментарий не найден");
             ;
 
             using (var tr = new Transaction(document))
             {
-                tr.Start("Startttt");
+                tr.Start("Starting");
 
                 parameterComment.Set(stringValueForParameter);
 
                 tr.Commit();
             }
             return new RevitContextResult(ResultStatus.Complete,
-            "Все заебок");
+            "Все ОК");
 
         }
     }
